@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.ptxt{
+    color: #999999;
+}
+.t1:hover{
+    background-color: #00BFFF;
+}
+.hov1{
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+}
+.img2{
+    display: block;
+}
+.overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transform: .5s ease;
+    background-color: rgba(81, 164, 250, 0.8);
+    margin: 10px;
+}
+.hov1:hover .overlay{
+    opacity: 1;
+}
+.ic3{
+    color: white;
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.fa-search,
+.fa-link{
+    border: 1px solid white;
+    border-radius: 5px;
+    background: transparent;
+    margin: 10px;
+    padding: 5px;
+}
+.s2{
+    background-image: url('images/bg2.png');
+    height: 500px; 
+    padding-top: 50px;
+    padding-bottom: 50px;   
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.s2 h3 {
+    color: #ffffff;
+    font-size: 41px;
+    font-weight: 400;            
+}
+.s2 p {
+    color: #999999;
+    font-size: 15px;
+    line-height: 23px;
+    font-weight: 400;
+}
+.form-group > input,
+.form-group > textarea
+{
+    background-color: transparent;
+    border-radius: 2px;
+    border: 1px solid #f6f9f9;
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    margin: 10px auto;  
+    padding: 10px;
+    width: 100%; 
+    max-width: 750px;
+}
+.s2 form span {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+}
+.s2 .form-group button {
+    border: 1px solid #15a4fa;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    margin: 25px 0 0 50px;
+    padding: 5px 25px;
+}
+.fa-facebook,
+.fa-twitter,
+.fa-google-plus,
+.fa-instagram{
+    background-color: #15a4fa;
+    color: white;
+    margin: 2px;
+    padding: 7px;
+}
+.fa-google-plus:hover{
+    color: rgb(255, 0, 0); 
+}
+.fa-instagram:hover{
+    color: rgb(109, 19, 19); 
+}
+.fa-twitter:hover{
+    color: rgb(17, 51, 155);
+}
+.fa-facebook:hover{
+    color:rgb(5, 18, 56);
+}
+.s1{
+    margin-right: 100px;
+}
