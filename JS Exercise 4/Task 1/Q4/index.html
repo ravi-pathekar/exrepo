@@ -12,12 +12,15 @@
   <body>
 
     <script>
-        for(let i = 1; i <=5; i++){
-            for(let j =1; j <= 5; j++){
+      'use strict';
+
+      let n = 5;
+        for(let i = 1; i <= n; i++){
+            for(let j =1; j <= n; j++){
                 if(j == i){
                     document.write("*");
                 }
-                else if(j == 6-i){
+                else if(j == n+1-i){
                     document.write("*");
                 }
                 else{
