@@ -49,3 +49,16 @@ Refactoring done.
 19/04/2020 - 4:00 PM
 
 Pagination added and restructured it.
+
+20/04/2020 - 12:00 PM
+
+Creating Flyout in ag grid table.
+
+20/04/2020 - 4:00 PM
+
+Created Flyout.
+Facing issue - Flyout is not closing.
+
+20/04/2020 - 7:00 PM
+
+Added Dynamic popover functionality.

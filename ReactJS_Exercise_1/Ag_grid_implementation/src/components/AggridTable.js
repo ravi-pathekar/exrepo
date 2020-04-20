@@ -6,8 +6,11 @@ import '@elastic/eui/dist/eui_theme_light.css';
 import ComboBox from './ComboBox';
 import EditDelete from './EditDelete';
 import Filter from './Filter';
-import PopOver from './PopOver';
+import DynamicPopOver from './DynamicPopOver'
 import Pagination from './Pagination';
+import Flyout from './Flyout';
+
+// let state;
 
 export default class AggridTable extends Component {
 
@@ -16,14 +19,14 @@ export default class AggridTable extends Component {
       
       this.state = {
       columnDefs: [ 
-        { headerName: "FirstName", field: "firstName",checkboxSelection: true, editable: true }, 
+        { headerName: "FirstName", field: "firstName",checkboxSelection: true, editable: true,}, 
         { headerName: "LastName", field: "lastName", }, 
-        { headerName: "Branch", field: "branch",  }, 
-        { headerName: "Contact", field: "contact", }, 
+        { headerName: "Branch", field: "branch", }, 
+        { headerName: "Contact", field: "contact",  }, 
         { headerName: "Email", field: "email", },
-        { headerName: "LName", field: "lName", }, 
+        // { headerName: "Em", field: "em", },
         {
-          headerName: "Tags", field: "tag", width: 500,
+          headerName: "Tags", field: "tag", width: 1000,
           cellRendererFramework: function(){
             return <ComboBox />
           }
@@ -55,17 +58,21 @@ export default class AggridTable extends Component {
 
         paginationPageSize:8,
         pageCount:10,
+        // buttonClicked: false,
+        rowSelected: false,
+        colState: null
       }
-
-      this.inputRef = React.createRef();
     } 
     
     onGridReady = params => {
       this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
-      this.colState = this.gridColumnApi.getColumnState();
+      this.gridApi.sizeColumnsToFit();
+      // state = this.gridColumnApi.getColumnState();
+      // console.log(state)
       this.setState({
-        pageCount: this.gridApi.paginationGetTotalPages()
+        pageCount: this.gridApi.paginationGetTotalPages(),
+        colState: this.gridColumnApi.getColumnState()
       })
     }
 
@@ -73,9 +80,10 @@ export default class AggridTable extends Component {
       await this.gridApi.setQuickFilter(document.getElementById('filter-text-box').value);
     };
 
-    showHideColumn = async (e, feild, keys) => {
-      this.temp = e.target.checked;    
-      await this.gridColumnApi.setColumnVisible(feild, !this.temp);
+    showHideColumn = (field, val) => {
+      // console.log(field, val);
+      // const { gridColumnAPi } = this.state;
+      this.gridColumnApi.setColumnVisible(field, val);
     };
 
     deleteRow = () => {
@@ -93,23 +101,61 @@ export default class AggridTable extends Component {
       }
     }
 
+    // onRowSelected = (e) => {
+    //   this.da = e.data
+    //   console.log(this.da)
+    // }
+
+    onSelectionChanged = (e) => {
+      this.ta = e.api.getSelectedNodes()[0].data
+      this.setState({
+        rowSelected: true
+      })
+    }
+
+
+
+    // getRow = (e) => {
+    //   this.temp = e.target.checked
+    //   this.selectedRows = this.gridApi.getSelectedRows();
+    //   console.log(this.selectedRows);
+    //   this.setState({
+    //     buttonClicked: true
+    //   })
+
+    // }
+
     render = () =>{
+      // let message;
+      // if(this.state.rowSelected){
+      //   // console.log(this.ta)
+      //   message = <Flyout selectedRowData={this.ta}/>
+      //   // message = <h1>Row selected</h1>
+      //   // console.log('mdfklm')
+      //   // console.log(this.selectedRows)
+      // }
         return (
             <div className="ag-theme-alpine"
                  style={{ height: 400 }}
             >
+
+                {/* <button onClick={this.getRow}>Get selected rows</button> */}
+
                 <Filter onFilterTextBoxChanged={this.onFilterTextBoxChanged} />
                 
-                <PopOver  showHideColumn={this.showHideColumn}
-                          columnDefs={this.state.columnDefs}
+                <DynamicPopOver  
+                      showHideColumns={this.showHideColumn}
+                      columnDefs={this.state.columnDefs}
                 />
 
                 <AgGridReact
                 columnDefs={this.state.columnDefs}
                 rowData={this.state.rowData}
                 defaultColDef={this.state.defaultColDef}
-                rowSelection="multiple"
-                onGridReady={this.onGridReady}
+                rowSelection="single"
+                onGridReady={(e) => this.onGridReady(e)}
+                onRowSelected={this.onRowSelected}
+                onSelectionChanged={this.onSelectionChanged}
                 pagination={true}
                 paginationPageSize={this.state.paginationPageSize}
                 />
@@ -117,6 +163,10 @@ export default class AggridTable extends Component {
                 <Pagination onPaginationChange = {this.onPaginationChange}
                             pageCount={this.state.pageCount}
                             paginationPageSize={this.state.paginationPageSize}/>
+
+                {/* <Flyout /> */}
+                {/* {message} */}
+                { this.state.rowSelected ? <Flyout selectedRowData={this.ta} /> : '' }
                 
             </div>
         )
